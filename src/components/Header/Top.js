@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fi';
 import UserMenu from './UserMenu';
 
-export default function Top() {
+export default function Top({ country }) {
   const [loggedIn, setLoggedIn] = useState(true);
   const [visible, setVisible] = useState(false);
   const handleOpen = () => {
@@ -22,7 +22,8 @@ export default function Top() {
         <Link href="/">Welcome to Shoppers!</Link>
         <ul className="flex items-center gap-4 divide-x cursor-pointer relative">
           <li className="flex items-center justify-center gap-1 text-gray-500 hover:text-gray-900">
-            <span className="font-medium text-sm">Morocco / usd</span>
+            <img src={country.flag} className="w-4 h-4 rounded-full" alt="" />
+            <span className="font-medium text-sm">Bangladesh / usd</span>
           </li>
           <li className="hidden md:flex items-center justify-center gap-1 text-gray-500 pl-3 hover:text-gray-900">
             <FiKey className="text-xl text-blue-600" />

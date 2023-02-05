@@ -1,8 +1,9 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import axios from 'axios';
 import Head from 'next/head';
 
-export default function Home() {
+export default function Home({ country }) {
   return (
     <>
       <Head>
@@ -12,12 +13,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="">
-        <Header />
+        <Header country={country} />
         <main className="px-4 m-auto">
           <h2>Main</h2>
         </main>
-        <Footer />
+        <Footer country={country} />
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  let data = await axios
+    .get('https://api.ipregistry.co/?key=9mbtdmyh518jtkno')
+    .then((res) => {
+      return res.data.location.country;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return {
+    props: {
+      country: { name: 'Bangladesh', flag: data.flag.emojitwo },
+    },
+  };
 }

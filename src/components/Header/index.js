@@ -2,11 +2,11 @@
 import Top from './Top';
 import MainHeader from './MainHeader';
 
-export default function Header() {
+export default function Header({ country }) {
   return (
     <header>
       {/* <Ad /> */}
-      <Top />
+      <Top country={country} />
       <MainHeader />
     </header>
   );
