@@ -2,8 +2,10 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import axios from 'axios';
 import Head from 'next/head';
+import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function Home({ country }) {
+  const { data: session } = useSession()
   return (
     <>
       <Head>
@@ -16,6 +18,7 @@ export default function Home({ country }) {
         <Header country={country} />
         <main className="px-4 m-auto">
           <h2>Main</h2>
+          {session ? 'your ared logged in' : 'you are not logged in'}
         </main>
         <Footer country={country} />
       </div>
