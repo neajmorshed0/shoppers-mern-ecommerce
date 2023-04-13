@@ -1,30 +1,32 @@
 import Link from 'next/link';
 import React from 'react';
+import { signOut, signIn } from 'next-auth/react';
 
-export default function UserMenu({ loggedIn }) {
+export default function UserMenu({ session }) {
   return (
     <li className="w-60 absolute py-4 top-10 right-0 bg-white shadow-sm z-50 flex flex-col fap-4 ">
       <h4 className="text-center mb-4 text-xl font-semibold text-gray-500">
         Welcome to Shopprs!
       </h4>
-      {loggedIn ? (
+      {session ? (
         <div className="flex flex-col items-center gap-y-1.5 px-4">
-          <Link
+          {/* <Link
             href="/"
             className="bg-green-200 text-green-600 w-10 h-10 inline-flex items-center justify-center font-semibold  flex-shrink-0  rounded-full text-sm"
           >
             JV
-          </Link>
+          </Link> */}
+          <img src={session.user.image} className='w-10 h-10 rounded-full' alt="" />
           <span className="text-gray-500 font-medium">Welcome Back!</span>
-          <h3 className="text-gray-400">@username</h3>
-          <button className="text-sm underline text-blue-400">Sign Out</button>
+          <h3 className="text-gray-400">{session.user.name}</h3>
+          <button className="text-sm underline text-blue-400" onClick={() => signOut()}>Sign Out</button>
         </div>
       ) : (
         <div className="flex gap-3 px-4">
           <button className="bg-blue-500 py-1.5 font-medium px-3 rounded text-white">
             Register
           </button>
-          <button className="text-blue-600 font-medium  bg-blue-100 py-1.5 px-3 rounded">
+          <button className="text-blue-600 font-medium  bg-blue-100 py-1.5 px-3 rounded" onClick={() => signIn()}>
             Login
           </button>
         </div>

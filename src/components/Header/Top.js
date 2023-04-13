@@ -8,9 +8,11 @@ import {
   FiUser,
 } from 'react-icons/fi';
 import UserMenu from './UserMenu';
+import { useSession } from 'next-auth/react';
 
 export default function Top({ country }) {
-  const [loggedIn, setLoggedIn] = useState(true);
+  // const [loggedIn, setLoggedIn] = useState(true);
+  const { data: session } = useSession();
   const [visible, setVisible] = useState(false);
   const handleOpen = () => {
     setVisible(!visible);
@@ -43,10 +45,11 @@ export default function Top({ country }) {
             className="flex items-center justify-center gap-1 text-gray-500 pl-3 hover:text-gray-900"
             onClick={handleOpen}
           >
-            {loggedIn ? (
+            {session ? (
               <div className="flex items-center justify-center gap-1 text-gray-500 pl-3 hover:text-gray-900">
-                <FiUser className="text-xl text-blue-600" />
-                <span className="font-medium text-sm">John Vai</span>
+                {/* <FiUser className="text-xl text-blue-600" /> */}
+                <img src={session.user.image} className='w-10 h-10 rounded-full' alt="" />
+                <span className="font-medium text-sm">{session.user.name}</span>
                 <FiChevronDown />
               </div>
             ) : (
@@ -55,7 +58,7 @@ export default function Top({ country }) {
                 <span className="font-medium text-sm">Account</span>
               </div>
             )}
-            {visible && <UserMenu loggedIn={loggedIn} />}
+            {visible && <UserMenu session={session} />}
           </li>
         </ul>
       </div>
